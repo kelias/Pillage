@@ -10,6 +10,7 @@ namespace Pillage
     internal class PersistanceManager : IPersistanceManager
     {
         private const string FILENAME = "history.json";
+        private const int MAX = 10;
 
         private static string ToJson<T>(T obj)
         {
@@ -80,7 +81,7 @@ namespace Pillage
             
             l.Insert(0, x);
 
-            if(l.Count>50) l.RemoveAt(l.Count-1);
+            if(l.Count>MAX) l.RemoveAt(l.Count-1);
         }
 
     }
