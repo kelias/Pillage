@@ -133,33 +133,31 @@ namespace Pillage.ViewModels
         public MainViewModel(MainView v,string folder= null)
         {
             view = v;
-
-            ViewSource.Source = results;
+            
             var h = PersistanceManager.GetHistory();
 
             if (h != null)
             {
-                foreach (var f in h.Folders)
-                {
-                    RecentFolders.Add(f);
-                }
-
-                foreach (var f in h.Searches)
-                {
-                    RecentSearches.Add(f);
-                }
-
-                foreach (var f in h.FilePatterns)
-                {
-                    RecentFilePatterns.Add(f);
-                }
-
+                AddToList(RecentFolders,h.Folders);
+                AddToList(RecentSearches, h.Searches);
+                AddToList(RecentFilePatterns, h.FilePatterns);
+                
                 if (h.Folders.Count > 0) Folder = h.Folders[0];
                 if (h.Searches.Count > 0) SearchText = h.Searches[0];
                 if (h.FilePatterns.Count > 0) FilePattern = h.FilePatterns[0];
             }
 
             BindCommands();
+
+            ViewSource.Source = results;
+        }
+
+        private void AddToList(ObservableCollection<string> source, List<string> items)
+        {
+            foreach (var i in items)
+            {
+                source.Add(i);
+            }
         }
 
         public void ShowView()
@@ -233,9 +231,14 @@ namespace Pillage.ViewModels
         private void DisplayComplete(SearchMetrics metrics)
         {
             IsRunning = false;
+
+            var resCount = results.Count;
+
             MoveToUiThread(() =>
+            {
                 Status =
-                    $"Search Complete. Elapsed Time: {metrics.ElapsedTime}, Files Searched: {metrics.FilesSearched}");
+                    $"Search Complete. Elapsed Time: {metrics.ElapsedTime}, Files Searched: {metrics.FilesSearched}, Results: {resCount}";
+            });
         }
 
         private void DisplayResult(SearchResult result)
