@@ -11,7 +11,7 @@ namespace Pillage
     {
         private const string FILENAME = "history.json";
 
-        private string ToJson<T>(T obj)
+        private static string ToJson<T>(T obj)
         {
             using (var stream = new MemoryStream())
             {
@@ -21,7 +21,7 @@ namespace Pillage
             }
         }
 
-        private T FromJson<T>(string input)
+        private static T FromJson<T>(string input)
         {
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(input)))
             {
@@ -71,7 +71,7 @@ namespace Pillage
             File.WriteAllText(FILENAME, j);
         }
 
-        private void InsertOrMoveToTop(List<string> l, string x)
+        private static void InsertOrMoveToTop(List<string> l, string x)
         {
             if (l.Contains(x))
             {

@@ -58,7 +58,7 @@
                         <StackPanel Margin="0,7,0,7">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{Binding Icon}" Height="24" Width="24"/>
-                                <TextBlock Text="{Binding Filename}" Margin="5,0,0,0" FontSize="14"/>
+                                <TextBlock Text="{Binding Filename}" Margin="3,0,0,0" FontSize="14"/>
                             </StackPanel>
 
                             <TextBlock Text="{Binding Folder}" FontSize="9" Margin="30,2,0,0"/>
