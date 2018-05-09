@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Pillage.Matchers;
@@ -26,13 +27,15 @@ namespace Pillage
         {
             cancelSource = new CancellationTokenSource();
             var cancelToken = new CancellationTokenSource().Token;
-                        
+
+            var ig = IgnoredExtensions.ToDictionary(k => k, v => v);
+
             Task.Run(() =>
             {
                 var watch = new Stopwatch();
                 watch.Start();
 
-                var files = FileScanner.GetAllFiles(ParentFolder, FilePattern, IgnoredExtensions, SearchSubfolders);
+                var files = FileIndexer.GetAllFiles(ParentFolder, FilePattern, ig, SearchSubfolders);
 
                 SearchStatusUpdate?.Invoke(new SearchStatus {FilesComplete = 0, FilesRemaining = files.Count});
 

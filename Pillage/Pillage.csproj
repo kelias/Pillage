@@ -72,7 +72,7 @@
     </ApplicationDefinition>
     <Compile Include="IPersistanceManager.cs" />
     <Compile Include="Matchers\GeneralMatcher.cs" />
-    <Compile Include="FileScanner.cs" />
+    <Compile Include="FileIndexer.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="PersistanceManager.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
