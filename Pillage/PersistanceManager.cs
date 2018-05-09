@@ -63,15 +63,25 @@ namespace Pillage
                 h = FromJson<History>(json);
             }
 
-            if (!h.Searches.Contains(searchText)) h.Searches.Insert(0, searchText);
-            if (!h.Folders.Contains(folder)) h.Folders.Insert(0, folder);
-            if (!h.FilePatterns.Contains(filePattern)) h.FilePatterns.Insert(0, filePattern);
-
-            if (h.Searches.Count > 50) h.Searches.RemoveAt(h.Searches.Count - 1);
-            if (h.Folders.Count > 50) h.Folders.RemoveAt(h.Folders.Count - 1);
-
+            InsertOrMoveToTop(h.Searches,searchText);
+            InsertOrMoveToTop(h.Folders,folder);
+            InsertOrMoveToTop(h.FilePatterns,filePattern);
+            
             var j = ToJson(h);
             File.WriteAllText(FILENAME, j);
         }
+
+        private static void InsertOrMoveToTop(List<string> l, string x)
+        {
+            if (l.Contains(x))
+            {
+                l.Remove(x);
+            }
+            
+            l.Insert(0, x);
+
+            if(l.Count>50) l.RemoveAt(l.Count-1);
+        }
+
     }
 }
