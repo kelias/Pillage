@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace Pillage
 {
     internal static class FileIndexer
     {
-        public static List<string> GetAllFiles(string parentFolder, string filePattern, Dictionary<string,string> ignoredExtensions, bool searchSubfolders)
+        public static List<string> GetAllFiles(string parentFolder, string filePattern,
+            Dictionary<string, string> ignoredExtensions, bool searchSubfolders)
         {
             return GetFiles(parentFolder, filePattern, ignoredExtensions, searchSubfolders);
         }
 
-        private static List<string> GetFiles(string parentFolder, string filePattern, Dictionary<string,string> ignoredExtensions, bool searchSubfolders)
+        private static List<string> GetFiles(string parentFolder, string filePattern,
+            Dictionary<string, string> ignoredExtensions, bool searchSubfolders)
         {
             string[] folders;
 
@@ -33,7 +33,7 @@ namespace Pillage
                 foreach (var f in folders)
                 {
                     //Recurse each folder
-                    files.AddRange(GetFiles(f, filePattern, ignoredExtensions,true));
+                    files.AddRange(GetFiles(f, filePattern, ignoredExtensions, true));
                 }
             }
 
@@ -46,11 +46,11 @@ namespace Pillage
                     var ext = Path.GetExtension(f).Replace(".", "").ToLower();
 
                     if (ignoredExtensions.ContainsKey(ext)) continue;
-                                        
+
                     files.Add(f);
                 }
             }
-            catch 
+            catch
             {
                 //no access to folder so skip
             }
