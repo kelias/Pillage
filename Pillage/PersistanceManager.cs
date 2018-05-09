@@ -7,12 +7,6 @@ using Pillage.Models;
 
 namespace Pillage
 {
-    internal interface IPersistanceManager
-    {
-        History GetHistory();
-        void SaveToHistory(string folder, string searchText, string filePattern);
-    }
-
     internal class PersistanceManager : IPersistanceManager
     {
         private const string FILENAME = "history.json";
