@@ -37,14 +37,17 @@ namespace Pillage
                 SearchStatusUpdate?.Invoke(new SearchStatus {FilesComplete = 0, FilesRemaining = files.Count});
 
                 var count = 1;
-
+                
                 foreach (var file in files)
                 {
                     if (cancelSource.IsCancellationRequested) break;
 
                     matcher.Search(file, SearchTerm, ResultFound);
-                    SearchStatusUpdate?.Invoke(new SearchStatus { FilesComplete = count++, FilesRemaining = files.Count });
+
+                    if(count++ % 20 == 0) SearchStatusUpdate?.Invoke(new SearchStatus { FilesComplete = count, FilesRemaining = files.Count });
                 }
+
+                SearchStatusUpdate?.Invoke(new SearchStatus { FilesComplete = count, FilesRemaining = files.Count });
 
                 watch.Stop();
 
