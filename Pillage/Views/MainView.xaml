@@ -8,7 +8,9 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         Title="Pillage" Height="767.286" Width="1051.026"
-        TitleCharacterCasing="Normal">
+        TitleCharacterCasing="Normal"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        BorderThickness="1">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="53*"/>
@@ -46,12 +48,11 @@
         </StatusBar>
         <Grid Margin="0,0,0,44" Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="203*"/>
-                <ColumnDefinition Width="288*"/>
-                <ColumnDefinition Width="552*"/>
+                <ColumnDefinition Width="325"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <ListBox Margin="0,0,6,0" ItemsSource="{Binding ViewSource.View}" SelectedItem="{Binding SelectedResult}" Grid.ColumnSpan="2">
+            <ListBox Margin="0,0,6,0" ItemsSource="{Binding ViewSource.View}" SelectedItem="{Binding SelectedResult}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="0,7,0,7">
@@ -66,8 +67,8 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <RichTextBox x:Name="ContentBox" Margin="4,0,0,0" IsReadOnly="True" AcceptsReturn="True" HorizontalScrollBarVisibility="Visible" Grid.Column="2" BorderThickness="0,0,0,0"/>
-            <GridSplitter Grid.Column="2" HorizontalAlignment="Left" Width="4"/>
+            <RichTextBox x:Name="ContentBox" Margin="4,0,0,0" IsReadOnly="True" AcceptsReturn="True" HorizontalScrollBarVisibility="Visible" Grid.Column="1" BorderThickness="0,0,0,0"/>
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="4"/>
         </Grid>
         <Button Content="..." HorizontalAlignment="Left" Margin="370,74,0,0" VerticalAlignment="Top" Width="33" Height="25" Command="{Binding BrowseFoldersCommand}"/>
         <CheckBox Content="Use Regular Expressions" HorizontalAlignment="Left" Margin="438,10,0,0" VerticalAlignment="Top" Width="163" IsChecked="{Binding UseRegularExpressions}" Height="18"/>
