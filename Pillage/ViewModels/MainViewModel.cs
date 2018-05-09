@@ -23,6 +23,8 @@ namespace Pillage.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        #region Properties
+
         public ICommand SearchCommand { get; set; }
         public ICommand BrowseFoldersCommand { get; set; }
 
@@ -126,11 +128,11 @@ namespace Pillage.ViewModels
             }
         }
 
-        public MainViewModel(MainView v)
+        #endregion
+
+        public MainViewModel(MainView v,string folder= null)
         {
             view = v;
-
-            //ViewSource.GroupDescriptions.Add(new PropertyGroupDescription("Folder"));
 
             ViewSource.Source = results;
             var h = PersistanceManager.GetHistory();
@@ -158,6 +160,11 @@ namespace Pillage.ViewModels
             }
 
             BindCommands();
+        }
+
+        public void ShowView()
+        {
+            view.Show();
         }
 
         private void BindCommands()
@@ -204,8 +211,8 @@ namespace Pillage.ViewModels
             results.Clear();
 
             IsRunning = true;
-            Status = "Searching...";
-
+            Status = "Indexing Files...";
+            
             searchManager.IgnoredExtensions = ConfigurationManager.AppSettings["IgnoredExtensions"].Split(',').ToList();
             searchManager.ParentFolder = Folder;
             searchManager.FilePattern = FilePattern;
@@ -237,7 +244,7 @@ namespace Pillage.ViewModels
             {
                 try
                 {
-                    result.Icon = IconManager.FindIconForFilename(result.Filename, false);
+                    result.Icon = IconManager.FindIconForFilename(result.Filename, true);
                     results.Add(result);
                 }
                 catch

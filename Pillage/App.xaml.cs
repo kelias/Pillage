@@ -1,17 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using Pillage.ViewModels;
+using Pillage.Views;
 
 namespace Pillage
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
+        private void App_OnStartup(object sender, StartupEventArgs e)
+        {
+            //Inject view into viewmodel
+            var view = Activator.CreateInstance<MainView>();
+            var vm = new MainViewModel(view);
+            view.Closing += (o,a)=> Current.Shutdown();
+            
+            vm.ShowView();
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace Pillage.Views
         {
             InitializeComponent();
 
-            DataContext = new MainViewModel(this);
+            //DataContext = new MainViewModel(this);
         }
     }
 }
