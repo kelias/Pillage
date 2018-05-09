@@ -133,7 +133,9 @@ namespace Pillage.ViewModels
         public MainViewModel(MainView v,string folder= null)
         {
             view = v;
-            
+
+            if (folder != null) Folder = folder;
+
             var h = PersistanceManager.GetHistory();
 
             if (h != null)
@@ -237,7 +239,7 @@ namespace Pillage.ViewModels
             MoveToUiThread(() =>
             {
                 Status =
-                    $"Search Complete. Elapsed Time: {metrics.ElapsedTime}, Files Searched: {metrics.FilesSearched}, Results: {resCount}";
+                    $"Search Complete. Results: {resCount}, Files Searched: {metrics.FilesSearched}, Elapsed Time: {metrics.ElapsedTime}";
             });
         }
 
