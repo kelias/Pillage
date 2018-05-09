@@ -42,17 +42,19 @@ namespace Pillage
             return history;
         }
 
-        public static void SaveToHistory(string folder, string searchText)
+        public static void SaveToHistory(string folder, string searchText, string filePattern)
         {
             History h;
 
             var path = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), FILENAME);
+
             if (!File.Exists(path))
             {
                 h = new History
                 {
                     Folders = new List<string> {folder},
-                    Searches = new List<string> {searchText}
+                    Searches = new List<string> {searchText},
+                    FilePatterns = new List<string> {filePattern}
                 };
             }
             else
@@ -63,6 +65,7 @@ namespace Pillage
 
             if (!h.Searches.Contains(searchText)) h.Searches.Insert(0, searchText);
             if (!h.Folders.Contains(folder)) h.Folders.Insert(0, folder);
+            if (!h.FilePatterns.Contains(filePattern)) h.FilePatterns.Insert(0, filePattern);
 
             if (h.Searches.Count > 50) h.Searches.RemoveAt(h.Searches.Count - 1);
             if (h.Folders.Count > 50) h.Folders.RemoveAt(h.Folders.Count - 1);

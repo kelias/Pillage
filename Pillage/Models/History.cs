@@ -8,5 +8,6 @@ namespace Pillage.Models
     {
         [DataMember] public List<string> Searches { get; set; }
         [DataMember] public List<string> Folders { get; set; }
+        [DataMember] public List<string> FilePatterns { get; set; }
     }
 }

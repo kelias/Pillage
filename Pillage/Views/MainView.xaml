@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock HorizontalAlignment="Left" Margin="23,21,0,0" TextWrapping="Wrap" Text="File Mask:" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding CommonFileExtensions}" HorizontalAlignment="Left" Height="23" Margin="100,18,0,0" Text="{Binding FilePattern}" VerticalAlignment="Top" Width="77" IsEditable="True"/>
+        <ComboBox ItemsSource="{Binding RecentFilePatterns}" HorizontalAlignment="Left" Height="23" Margin="100,18,0,0" Text="{Binding FilePattern}" VerticalAlignment="Top" Width="77" IsEditable="True"/>
 
         <Button Margin="0,19,10,0" VerticalAlignment="Top" Command="{Binding SearchCommand}" HorizontalAlignment="Right" Width="75" IsDefault="True" IsCancel="True">
             <TextBlock>
@@ -34,10 +34,10 @@
         </Button>
 
         <TextBlock HorizontalAlignment="Left" Margin="23,49,0,0" TextWrapping="Wrap" Text="Search Text:" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="100,46,0,0" TextWrapping="Wrap" Text="{Binding SearchText}" VerticalAlignment="Top" Width="264"/>
+        <ComboBox ItemsSource="{Binding RecentSearches}" HorizontalAlignment="Left" Height="23" Margin="100,46,0,0" Text="{Binding SearchText}" VerticalAlignment="Top" Width="264" IsEditable="True"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="23,77,0,0" TextWrapping="Wrap" Text="Folder:" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="100,74,0,0" TextWrapping="Wrap" Text="{Binding Folder}" VerticalAlignment="Top" Width="264"/>
+        <ComboBox ItemsSource="{Binding RecentFolders}" HorizontalAlignment="Left" Height="23" Margin="100,74,0,0" Text="{Binding Folder}" VerticalAlignment="Top" Width="264" IsEditable="True"/>
 
         <StatusBar Grid.Row="1" Height="44" VerticalAlignment="Bottom">
             <StatusBarItem>
@@ -65,7 +65,7 @@
                         <StackPanel Margin="0,0,0,5">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{Binding Icon}" Height="16" Width="16"/>
-                                <TextBlock Text="{Binding Filename}" Margin="10,0,0,0"/>
+                                <TextBlock Text="{Binding Filename}" Margin="5,0,0,0"/>
                             </StackPanel>
                             
                             <TextBlock Text="{Binding Folder}" FontSize="9" Margin="0,5,0,10"/>

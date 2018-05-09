@@ -31,6 +31,7 @@ namespace Pillage.ViewModels
         public CollectionViewSource ViewSource { get; set; } = new CollectionViewSource();
         public ObservableCollection<string> RecentSearches { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> RecentFolders { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<string> RecentFilePatterns { get; set; } = new ObservableCollection<string>();
 
         private string searchText;
         private string filePattern = "*.*";
@@ -134,18 +135,27 @@ namespace Pillage.ViewModels
             ViewSource.Source = results;
             var h = PersistanceManager.GetHistory();
 
-            foreach (var f in h.Folders)
+            if (h != null)
             {
-                RecentFolders.Add(f);
-            }
+                foreach (var f in h.Folders)
+                {
+                    RecentFolders.Add(f);
+                }
 
-            foreach (var f in h.Searches)
-            {
-                RecentSearches.Add(f);
-            }
+                foreach (var f in h.Searches)
+                {
+                    RecentSearches.Add(f);
+                }
 
-            if(h.Folders.Count>0) Folder = h.Folders[0];
-            if(h.Searches.Count>0) SearchText = h.Searches[0];
+                foreach (var f in h.FilePatterns)
+                {
+                    RecentFilePatterns.Add(f);
+                }
+
+                if (h.Folders.Count > 0) Folder = h.Folders[0];
+                if (h.Searches.Count > 0) SearchText = h.Searches[0];
+                if (h.FilePatterns.Count > 0) FilePattern = h.FilePatterns[0];
+            }
 
             BindCommands();
         }
@@ -189,7 +199,7 @@ namespace Pillage.ViewModels
                 return;
             }
 
-            PersistanceManager.SaveToHistory(Folder,SearchText);
+            PersistanceManager.SaveToHistory(Folder,SearchText,FilePattern);
 
             results.Clear();
 
