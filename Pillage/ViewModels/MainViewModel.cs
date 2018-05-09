@@ -18,7 +18,7 @@ namespace Pillage.ViewModels
 {
     internal class MainViewModel : INotifyPropertyChanged
     {
-        private readonly SearchManager searchManager = new SearchManager();
+        private readonly SearchManager mgr = new SearchManager();
         private readonly MainView view;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -182,7 +182,7 @@ namespace Pillage.ViewModels
             if (IsRunning)
             {
                 //Cancel
-                searchManager.Stop();
+                mgr.Stop();
                 return;
             }
 
@@ -217,16 +217,16 @@ namespace Pillage.ViewModels
             IsRunning = true;
             Status = "Indexing Files...";
             
-            searchManager.IgnoredExtensions = ConfigurationManager.AppSettings["IgnoredExtensions"].Split(',').ToList();
-            searchManager.ParentFolder = Folder;
-            searchManager.FilePattern = FilePattern;
-            searchManager.SearchTerm = SearchText;
-            searchManager.SearchSubfolders = SearchSubFolders;
-            searchManager.ResultFound = DisplayResult;
-            searchManager.SearchComplete = DisplayComplete;
-            searchManager.SearchStatusUpdate = DisplayStatusUpdate;
+            mgr.IgnoredExtensions = ConfigurationManager.AppSettings["IgnoredExtensions"].Split(',').ToList();
+            mgr.ParentFolder = Folder;
+            mgr.FilePattern = FilePattern;
+            mgr.SearchTerm = SearchText;
+            mgr.SearchSubfolders = SearchSubFolders;
+            mgr.ResultFound = DisplayResult;
+            mgr.SearchComplete = DisplayComplete;
+            mgr.SearchStatusUpdate = DisplayStatusUpdate;
 
-            searchManager.Search(UseRegularExpressions ? (IMatcher) new RegexMatcher() : new GeneralMatcher());
+            mgr.Search(UseRegularExpressions ? (IMatcher) new RegexMatcher() : new GeneralMatcher());
         }
 
         private void DisplayStatusUpdate(SearchStatus s)
@@ -320,11 +320,9 @@ namespace Pillage.ViewModels
             }
         }
 
-        private void DisplayMessage(string message)
+        private static void DisplayMessage(string message)
         {
             MessageBox.Show(message, "Pillage", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
-        
     }
 }
