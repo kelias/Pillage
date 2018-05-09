@@ -11,12 +11,12 @@
         TitleCharacterCasing="Normal">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="119*"/>
-            <RowDefinition Height="505*"/>
+            <RowDefinition Height="53*"/>
+            <RowDefinition Height="315*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock HorizontalAlignment="Left" Margin="23,21,0,0" TextWrapping="Wrap" Text="File Mask:" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding RecentFilePatterns}" HorizontalAlignment="Left" Height="23" Margin="100,18,0,0" Text="{Binding FilePattern}" VerticalAlignment="Top" Width="77" IsEditable="True"/>
+        <TextBlock HorizontalAlignment="Left" Margin="23,21,0,0" TextWrapping="Wrap" Text="File Mask:" VerticalAlignment="Top" Height="16" Width="52"/>
+        <ComboBox ItemsSource="{Binding RecentFilePatterns}" HorizontalAlignment="Left" Height="26" Margin="100,18,0,0" Text="{Binding FilePattern}" VerticalAlignment="Top" Width="77" IsEditable="True"/>
 
         <Button Margin="440,69,0,0" VerticalAlignment="Top" Command="{Binding SearchCommand}" HorizontalAlignment="Left" Width="93" IsDefault="True" IsCancel="True" Height="33">
             <TextBlock>
@@ -33,11 +33,11 @@
             </TextBlock>
         </Button>
 
-        <TextBlock HorizontalAlignment="Left" Margin="23,49,0,0" TextWrapping="Wrap" Text="Search Text:" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding RecentSearches}" HorizontalAlignment="Left" Height="23" Margin="100,46,0,0" Text="{Binding SearchText}" VerticalAlignment="Top" Width="264" IsEditable="True"/>
+        <TextBlock HorizontalAlignment="Left" Margin="23,49,0,0" TextWrapping="Wrap" Text="Search Text:" VerticalAlignment="Top" Height="16" Width="62"/>
+        <ComboBox ItemsSource="{Binding RecentSearches}" HorizontalAlignment="Left" Height="26" Margin="100,46,0,0" Text="{Binding SearchText}" VerticalAlignment="Top" Width="264" IsEditable="True"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="23,77,0,0" TextWrapping="Wrap" Text="Folder:" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding RecentFolders}" HorizontalAlignment="Left" Height="23" Margin="100,74,0,0" Text="{Binding Folder}" VerticalAlignment="Top" Width="264" IsEditable="True"/>
+        <TextBlock HorizontalAlignment="Left" Margin="23,77,0,0" TextWrapping="Wrap" Text="Folder:" VerticalAlignment="Top" Height="16" Width="36"/>
+        <ComboBox ItemsSource="{Binding RecentFolders}" HorizontalAlignment="Left" Height="26" Margin="100,74,0,0" Text="{Binding Folder}" VerticalAlignment="Top" Width="264" IsEditable="True"/>
 
         <StatusBar Grid.Row="1" Height="44" VerticalAlignment="Bottom">
             <StatusBarItem>
@@ -46,40 +46,32 @@
         </StatusBar>
         <Grid Margin="0,0,0,44" Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="383*"/>
-                <ColumnDefinition Width="431*"/>
+                <ColumnDefinition Width="203*"/>
+                <ColumnDefinition Width="288*"/>
+                <ColumnDefinition Width="552*"/>
             </Grid.ColumnDefinitions>
 
-            <ListBox Margin="0,0,6.475,0" ItemsSource="{Binding ViewSource.View}" SelectedItem="{Binding SelectedResult}">
-                <ListBox.GroupStyle>
-                    <GroupStyle>
-                        <GroupStyle.HeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}" Margin="0,0,0,0"/>
-                            </DataTemplate>
-                        </GroupStyle.HeaderTemplate>
-                    </GroupStyle>
-                </ListBox.GroupStyle>
+            <ListBox Margin="0,0,6,0" ItemsSource="{Binding ViewSource.View}" SelectedItem="{Binding SelectedResult}" Grid.ColumnSpan="2">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="0,0,0,5">
+                        <StackPanel Margin="0,7,0,7">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{Binding Icon}" Height="16" Width="16"/>
-                                <TextBlock Text="{Binding Filename}" Margin="5,0,0,0"/>
+                                <Image Source="{Binding Icon}" Height="24" Width="24"/>
+                                <TextBlock Text="{Binding Filename}" Margin="5,0,0,0" FontSize="14"/>
                             </StackPanel>
 
-                            <TextBlock Text="{Binding Folder}" FontSize="9" Margin="0,5,0,10"/>
+                            <TextBlock Text="{Binding Folder}" FontSize="9" Margin="30,2,0,0"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <RichTextBox x:Name="ContentBox" Margin="4,0,0,0" IsReadOnly="True" AcceptsReturn="True" HorizontalScrollBarVisibility="Visible" Grid.Column="1" BorderThickness="0,0,0,0"/>
-            <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="4"/>
+            <RichTextBox x:Name="ContentBox" Margin="4,0,0,0" IsReadOnly="True" AcceptsReturn="True" HorizontalScrollBarVisibility="Visible" Grid.Column="2" BorderThickness="0,0,0,0"/>
+            <GridSplitter Grid.Column="2" HorizontalAlignment="Left" Width="4"/>
         </Grid>
         <Button Content="..." HorizontalAlignment="Left" Margin="370,74,0,0" VerticalAlignment="Top" Width="33" Height="25" Command="{Binding BrowseFoldersCommand}"/>
-        <CheckBox Content="Use Regular Expressions" HorizontalAlignment="Left" Margin="438,10,0,0" VerticalAlignment="Top" Width="163" IsChecked="{Binding UseRegularExpressions}"/>
-        <CheckBox Content="Search Sub Folders" HorizontalAlignment="Left" Margin="438,35,0,0" VerticalAlignment="Top" Width="163" IsChecked="{Binding SearchSubFolders}"/>
+        <CheckBox Content="Use Regular Expressions" HorizontalAlignment="Left" Margin="438,10,0,0" VerticalAlignment="Top" Width="163" IsChecked="{Binding UseRegularExpressions}" Height="18"/>
+        <CheckBox Content="Search Sub Folders" HorizontalAlignment="Left" Margin="438,35,0,0" VerticalAlignment="Top" Width="163" IsChecked="{Binding SearchSubFolders}" Height="18"/>
     </Grid>
 </mah:MetroWindow>
 
