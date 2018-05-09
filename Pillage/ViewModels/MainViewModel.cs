@@ -25,6 +25,8 @@ namespace Pillage.ViewModels
 
         #region Properties
 
+        private IPersistanceManager pm;
+
         public ICommand SearchCommand { get; set; }
         public ICommand BrowseFoldersCommand { get; set; }
 
@@ -130,13 +132,15 @@ namespace Pillage.ViewModels
 
         #endregion
 
-        public MainViewModel(MainView v,string folder= null)
+        public MainViewModel(MainView v, IPersistanceManager pm, string folder= null)
         {
             view = v;
 
+            this.pm = pm;
+
             if (folder != null) Folder = folder;
 
-            var h = PersistanceManager.GetHistory();
+            var h = pm.GetHistory();
 
             if (h != null)
             {
@@ -206,7 +210,7 @@ namespace Pillage.ViewModels
                 return;
             }
 
-            PersistanceManager.SaveToHistory(Folder,SearchText,FilePattern);
+            pm.SaveToHistory(Folder,SearchText,FilePattern);
 
             results.Clear();
 

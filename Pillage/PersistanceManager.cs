@@ -7,11 +7,17 @@ using Pillage.Models;
 
 namespace Pillage
 {
-    internal static class PersistanceManager
+    internal interface IPersistanceManager
+    {
+        History GetHistory();
+        void SaveToHistory(string folder, string searchText, string filePattern);
+    }
+
+    internal class PersistanceManager : IPersistanceManager
     {
         private const string FILENAME = "history.json";
 
-        private static string ToJson<T>(T obj)
+        private string ToJson<T>(T obj)
         {
             using (var stream = new MemoryStream())
             {
@@ -21,7 +27,7 @@ namespace Pillage
             }
         }
 
-        private static T FromJson<T>(string input)
+        private T FromJson<T>(string input)
         {
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(input)))
             {
@@ -31,7 +37,7 @@ namespace Pillage
             }
         }
 
-        public static History GetHistory()
+        public History GetHistory()
         {
             var path = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), FILENAME);
             if (!File.Exists(path)) return null;
@@ -42,7 +48,7 @@ namespace Pillage
             return history;
         }
 
-        public static void SaveToHistory(string folder, string searchText, string filePattern)
+        public void SaveToHistory(string folder, string searchText, string filePattern)
         {
             History h;
 
@@ -71,7 +77,7 @@ namespace Pillage
             File.WriteAllText(FILENAME, j);
         }
 
-        private static void InsertOrMoveToTop(List<string> l, string x)
+        private void InsertOrMoveToTop(List<string> l, string x)
         {
             if (l.Contains(x))
             {

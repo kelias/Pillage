@@ -10,8 +10,9 @@ namespace Pillage
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             //Inject view into viewmodel
+            var pm = new PersistanceManager();
             var view = Activator.CreateInstance<MainView>();
-            var vm = new MainViewModel(view);
+            var vm = new MainViewModel(view,pm);
             view.Closing += (o,a)=> Current.Shutdown();
             view.DataContext = vm;
 
