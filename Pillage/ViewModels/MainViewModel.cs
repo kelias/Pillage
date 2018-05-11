@@ -215,7 +215,7 @@ namespace Pillage.ViewModels
             results.Clear();
 
             IsRunning = true;
-            Status = "Indexing Files...";
+            Status = "Scanning Files...";
             
             mgr.IgnoredExtensions = ConfigurationManager.AppSettings["IgnoredExtensions"].Split(',').ToList();
             mgr.ParentFolder = Folder;
@@ -238,12 +238,10 @@ namespace Pillage.ViewModels
         {
             IsRunning = false;
 
-            var resCount = results.Count;
-
             MoveToUiThread(() =>
             {
                 Status =
-                    $"Search Complete. Results: {resCount}, Files Searched: {metrics.FilesSearched}, Elapsed Time: {metrics.ElapsedTime}";
+                    $"Search Complete. Files Searched: {metrics.FilesSearched}, Elapsed Time: {metrics.ElapsedTime}";
             });
         }
 

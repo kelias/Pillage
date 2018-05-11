@@ -20,7 +20,7 @@ namespace Pillage
         public Action<SearchMetrics> SearchComplete { get; set; }
         public Action<SearchStatus> SearchStatusUpdate { get; set; }
         public bool SearchSubfolders { get; set; }
-        
+
         private CancellationTokenSource cancelSource;
 
         public void Search(IMatcher matcher)
@@ -35,22 +35,26 @@ namespace Pillage
                 var watch = new Stopwatch();
                 watch.Start();
 
-                var files = FileIndexer.GetAllFiles(ParentFolder, FilePattern, ig, SearchSubfolders);
+                var files = FileScanner.GetAllFiles(ParentFolder, FilePattern, ig, SearchSubfolders);
 
                 SearchStatusUpdate?.Invoke(new SearchStatus {FilesComplete = 0, FilesRemaining = files.Count});
 
                 var count = 1;
-                
-                foreach (var file in files)
-                {
-                    if (cancelSource.IsCancellationRequested) break;
 
-                    matcher.Search(file, SearchTerm, ResultFound);
 
-                    if(count++ % 20 == 0) SearchStatusUpdate?.Invoke(new SearchStatus { FilesComplete = count, FilesRemaining = files.Count });
-                }
+                Parallel.ForEach(files,
+                    (file, state) =>
+                    {
+                        if (cancelSource.IsCancellationRequested) state.Break();
 
-                SearchStatusUpdate?.Invoke(new SearchStatus { FilesComplete = count, FilesRemaining = files.Count });
+                        matcher.Search(file, SearchTerm, ResultFound);
+
+                        if (count++ % 20 == 0)
+                            SearchStatusUpdate?.Invoke(
+                                new SearchStatus {FilesComplete = count, FilesRemaining = files.Count});
+                    });
+
+                SearchStatusUpdate?.Invoke(new SearchStatus {FilesComplete = count, FilesRemaining = files.Count});
 
                 watch.Stop();
 
@@ -61,12 +65,12 @@ namespace Pillage
                 };
 
                 SearchComplete?.Invoke(metrics);
-            },cancelToken);
+            }, cancelToken);
         }
 
         public void Stop()
         {
-            cancelSource.Cancel();    
+            cancelSource.Cancel();
         }
     }
 }
