@@ -35,7 +35,7 @@ namespace Pillage
                 var watch = new Stopwatch();
                 watch.Start();
 
-                var files = FileScanner.GetAllFiles(ParentFolder, FilePattern, ig, SearchSubfolders);
+                var files = FileScanner.GetFiles(ParentFolder, FilePattern, ig, SearchSubfolders);
 
                 SearchStatusUpdate?.Invoke(new SearchStatus {FilesComplete = 0, FilesRemaining = files.Count});
 
