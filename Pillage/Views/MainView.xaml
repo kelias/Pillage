@@ -40,12 +40,7 @@
 
         <TextBlock HorizontalAlignment="Left" Margin="23,77,0,0" TextWrapping="Wrap" Text="Folder:" VerticalAlignment="Top" Height="16" Width="36"/>
         <ComboBox ItemsSource="{Binding RecentFolders}" HorizontalAlignment="Left" Height="26" Margin="100,74,0,0" Text="{Binding Folder}" VerticalAlignment="Top" Width="264" IsEditable="True"/>
-
-        <StatusBar Grid.Row="1" Height="44" VerticalAlignment="Bottom">
-            <StatusBarItem>
-                <TextBlock Text="{Binding Status}" />
-            </StatusBarItem>
-        </StatusBar>
+        
         <Grid Margin="0,0,0,44" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="325"/>
@@ -73,6 +68,20 @@
         <Button Content="..." HorizontalAlignment="Left" Margin="370,74,0,0" VerticalAlignment="Top" Width="33" Height="25" Command="{Binding BrowseFoldersCommand}"/>
         <CheckBox Content="Use Regular Expressions" HorizontalAlignment="Left" Margin="438,10,0,0" VerticalAlignment="Top" Width="163" IsChecked="{Binding UseRegularExpressions}" Height="18"/>
         <CheckBox Content="Search Sub Folders" HorizontalAlignment="Left" Margin="438,35,0,0" VerticalAlignment="Top" Width="163" IsChecked="{Binding SearchSubFolders}" Height="18"/>
+
+        <StatusBar Grid.Row="1" Height="44" VerticalAlignment="Bottom">
+            
+            <StatusBarItem DockPanel.Dock="Right">
+                <TextBlock Text="{Binding Status}" />
+            </StatusBarItem>
+            
+            <StatusBarItem >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Matches: " />
+                    <TextBlock Text="{Binding ViewSource.View.Count}" />
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </mah:MetroWindow>
 

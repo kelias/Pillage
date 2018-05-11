@@ -40,8 +40,7 @@ namespace Pillage
                 SearchStatusUpdate?.Invoke(new SearchStatus {FilesComplete = 0, FilesRemaining = files.Count});
 
                 var count = 1;
-
-
+                
                 Parallel.ForEach(files,
                     (file, state) =>
                     {
@@ -49,7 +48,8 @@ namespace Pillage
 
                         matcher.Search(file, SearchTerm, ResultFound);
 
-                        if (count++ % 20 == 0)
+                        //throttle to speed things up
+                        if (count++ % 30 == 0)
                             SearchStatusUpdate?.Invoke(
                                 new SearchStatus {FilesComplete = count, FilesRemaining = files.Count});
                     });
