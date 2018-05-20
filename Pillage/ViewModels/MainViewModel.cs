@@ -137,9 +137,7 @@ namespace Pillage.ViewModels
             view = v;
 
             this.pm = pm;
-
-            if (folder != null) Folder = folder;
-
+            
             var h = pm.GetHistory();
 
             if (h != null)
@@ -152,6 +150,8 @@ namespace Pillage.ViewModels
                 if (h.Searches.Count > 0) SearchText = h.Searches[0];
                 if (h.FilePatterns.Count > 0) FilePattern = h.FilePatterns[0];
             }
+
+            if (folder != null) Folder = folder;
 
             BindCommands();
 
