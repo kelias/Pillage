@@ -33,8 +33,6 @@ namespace Pillage.Matchers
                         };
 
                         resultAction.Invoke(s);
-
-                        //break;
                     }
                 }
             }

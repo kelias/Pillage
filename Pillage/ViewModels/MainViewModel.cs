@@ -25,7 +25,7 @@ namespace Pillage.ViewModels
 
         #region Properties
 
-        private IPersistanceManager pm;
+        private readonly IPersistanceManager pm;
 
         public ICommand SearchCommand { get; set; }
         public ICommand BrowseFoldersCommand { get; set; }
